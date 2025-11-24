@@ -1,15 +1,32 @@
 [versions]
 kotlin = "2.2.20"
-ktor = "3.3.2"
-logback = "1.4.14"
+ktor-version = "3.3.2"
+logback = "1.5.13"
+exposed-version = "0.61.0"
+mysql-version = "8.0.33"
+hikaricp-version = "5.1.0"
+resend-version = "3.1.0"
 
 [libraries]
-ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
-ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
+ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor-version" }
+ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor-version" }
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
-ktor-server-test-host = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
+ktor-server-test-host = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor-version" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation-jvm", version.ref = "ktor-version" }
+ktor-serialization-gson = { module = "io.ktor:ktor-serialization-gson-jvm", version.ref = "ktor-version" }
+ktor-server-default-headers = { module = "io.ktor:ktor-server-default-headers-jvm", version.ref = "ktor-version" }
+ktor-server-call-logging = { module = "io.ktor:ktor-server-call-logging-jvm", version.ref = "ktor-version" }
+ktor-server-status-pages = { module = "io.ktor:ktor-server-status-pages-jvm", version.ref = "ktor-version" }
+ktor-server-http-redirect = { module = "io.ktor:ktor-server-http-redirect-jvm", version.ref = "ktor-version" }
+ktor-server-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt-jvm", version.ref = "ktor-version" }
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed-version" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed-version" }
+mysql-connector = { module = "mysql:mysql-connector-java", version.ref = "mysql-version" }
+resend = { module = "com.resend:resend-java", version.ref = "resend-version" }
+hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "hikaricp-version" }
+cors = { module = "io.ktor:ktor-server-cors" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
+ktor = { id = "io.ktor.plugin", version.ref = "ktor-version" }
