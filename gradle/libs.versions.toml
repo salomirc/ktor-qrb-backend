@@ -22,6 +22,7 @@ ktor-server-http-redirect = { module = "io.ktor:ktor-server-http-redirect-jvm", 
 ktor-server-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt-jvm", version.ref = "ktor-version" }
 exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed-version" }
 exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed-version" }
+exposed-migration = { module = "org.jetbrains.exposed:exposed-migration", version.ref = "exposed-version" }
 mysql-connector = { module = "mysql:mysql-connector-java", version.ref = "mysql-version" }
 resend = { module = "com.resend:resend-java", version.ref = "resend-version" }
 hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "hikaricp-version" }

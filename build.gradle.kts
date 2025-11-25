@@ -28,6 +28,7 @@ dependencies {
 
     implementation(libs.exposed.core)
     implementation(libs.exposed.jdbc)
+    implementation(libs.exposed.migration)
 
     // MySQL JDBC driver
     implementation(libs.mysql.connector)

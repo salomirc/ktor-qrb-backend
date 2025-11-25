@@ -1,6 +1,6 @@
 package com.bitrabbit.db
 
-import com.bitrabbit.db.initDSL.initDSLQuickResumeBuilderDb
+import com.bitrabbit.db.initDSL.initQuickResumeBuilderDb
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.config.*
@@ -46,7 +46,7 @@ object DatabaseFactory {
         // Create tables if not exist
         transaction {
             addLogger(StdOutSqlLogger)
-            initDSLQuickResumeBuilderDb()
+            initQuickResumeBuilderDb()
         }
     }
 }
