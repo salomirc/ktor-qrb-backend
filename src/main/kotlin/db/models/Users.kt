@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.Table
 object Users: Table() {
     val id = integer("id").autoIncrement()
     val username: Column<String> = varchar("username", 50).uniqueIndex()
-    val password: Column<String> = varchar("password", 50).uniqueIndex()
+    val password: Column<String> = varchar("password", 50)
     val firstName: Column<String> = varchar("first_name", 50)
     val lastName: Column<String> = varchar("last_name", 50)
     val email: Column<String> = varchar("email", 50)

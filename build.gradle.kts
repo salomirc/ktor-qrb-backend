@@ -29,6 +29,8 @@ dependencies {
     implementation(libs.exposed.core)
     implementation(libs.exposed.jdbc)
     implementation(libs.exposed.migration)
+    implementation(libs.flyway)
+    implementation(libs.flyway.mysql)
 
     // MySQL JDBC driver
     implementation(libs.mysql.connector)

@@ -6,6 +6,7 @@ exposed-version = "0.61.0"
 mysql-version = "8.0.33"
 hikaricp-version = "5.1.0"
 resend-version = "3.1.0"
+flyway-version = "10.14.0"
 
 [libraries]
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor-version" }
@@ -27,6 +28,8 @@ mysql-connector = { module = "mysql:mysql-connector-java", version.ref = "mysql-
 resend = { module = "com.resend:resend-java", version.ref = "resend-version" }
 hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "hikaricp-version" }
 cors = { module = "io.ktor:ktor-server-cors" }
+flyway = { module = "org.flywaydb:flyway-core", version.ref = "flyway-version" }
+flyway-mysql = { module = "org.flywaydb:flyway-mysql", version.ref = "flyway-version" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
