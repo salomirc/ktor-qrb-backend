@@ -1,12 +1,11 @@
 package com.bitrabbit
 
 import com.bitrabbit.db.DatabaseFactory
+import com.bitrabbit.db.dao.IResumeDao
 import com.bitrabbit.db.dao.IUserDao
+import com.bitrabbit.db.dao.ResumeDao
 import com.bitrabbit.db.dao.UserDao
-import com.bitrabbit.routes.login
-import com.bitrabbit.routes.root
-import com.bitrabbit.routes.sendMail
-import com.bitrabbit.routes.who
+import com.bitrabbit.routes.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.http.content.*
@@ -31,9 +30,11 @@ fun Application.module() {
     installPlugins(realm, issuer, audience)
 
     val userDao: IUserDao = UserDao()
+    val resumeDao: IResumeDao = ResumeDao()
 
     routing {
         root()
+        resumeRoutes(resumeDao)
         sendMail(apiKey)
 
         // Static feature. Try to access `/static/ktor_logo.svg`

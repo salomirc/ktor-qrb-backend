@@ -86,7 +86,7 @@ fun Application.installPlugins(
         allowHost("salomirc.linkpc.net", schemes = listOf("https"))
 
         // ✅ Allow localhost for development
-        allowHost("localhost:8889", schemes = listOf("http"))
+        allowHost("localhost:8080", schemes = listOf("http"))
 
         // ✅ Allow typical frontend headers
         allowHeader(HttpHeaders.ContentType)
