@@ -6,27 +6,31 @@ import com.bitrabbit.helper.AuthHelper.makeToken
 import io.ktor.server.auth.*
 import io.ktor.server.routing.*
 import io.ktor.util.reflect.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
 fun Route.login(issuer: String, audience: String){
     get("/login") {
         val principal = call.principal<UserIdPrincipal>()!!
-        val users = transaction {
-            Users
-                .selectAll()
-                .where { Users.username eq principal.name }
-                .map {
-                    User(
-                        it[Users.username],
-                        it[Users.password],
-                        it[Users.firstName],
-                        it[Users.lastName],
-                        it[Users.email],
-                        it[Users.isAdmin],
-                        it[Users.token]
-                    )
-                }
+        val users = withContext(Dispatchers.IO) {
+            transaction {
+                Users
+                    .selectAll()
+                    .where { Users.username eq principal.name }
+                    .map {
+                        User(
+                            it[Users.username],
+                            it[Users.password],
+                            it[Users.firstName],
+                            it[Users.lastName],
+                            it[Users.email],
+                            it[Users.isAdmin],
+                            it[Users.token]
+                        )
+                    }
+            }
         }
         call.respond(
             users[0].apply {

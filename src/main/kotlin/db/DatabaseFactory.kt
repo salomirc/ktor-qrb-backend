@@ -39,6 +39,9 @@ object DatabaseFactory {
         initDbTables()
     }
 
+    /**
+     * Initial DB schema creation (blocking, called only at startup)
+     */
     private fun initDbTables() {
         // Create tables if not exist
         transaction {

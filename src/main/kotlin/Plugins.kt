@@ -14,6 +14,8 @@ import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -29,13 +31,15 @@ fun Application.installPlugins(
         basic("myBasicAuth") {
             this.realm = realm
             validate { auth ->
-                val users = transaction {
-                    Users
-                        .selectAll()
-                        .where { (Users.username eq auth.name) and (Users.password eq auth.password) }
-                        .map { resultRow ->
-                            resultRow[Users.username]
-                        }
+                val users = withContext(Dispatchers.IO) {
+                    transaction {
+                        Users
+                            .selectAll()
+                            .where { (Users.username eq auth.name) and (Users.password eq auth.password) }
+                            .map { resultRow ->
+                                resultRow[Users.username]
+                            }
+                    }
                 }
                 if (users.isNotEmpty()) UserIdPrincipal(auth.name) else null
             }
