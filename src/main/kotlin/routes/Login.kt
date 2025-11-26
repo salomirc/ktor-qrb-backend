@@ -16,9 +16,11 @@ fun Route.login(issuer: String, audience: String, userDao: IUserDao){
         val user = userIdPrincipal?.let { principal ->
             withContext(Dispatchers.IO) {
                 transaction {
-                    userDao.getByUsername(principal.name)?.apply {
-                        this.token = makeToken(issuer, audience, principal.name)
-                    }
+                    val token = makeToken(issuer, audience, principal.name)
+                    val existingUser = userDao.getByUsername(principal.name) ?: return@transaction null
+                    val updatedUser = existingUser.copy(token = token)
+                    val success = userDao.update(updatedUser.id, updatedUser)
+                    if (success) updatedUser else null
                 }
             }
         }

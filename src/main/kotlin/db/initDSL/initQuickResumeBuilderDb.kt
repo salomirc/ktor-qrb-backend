@@ -18,7 +18,7 @@ fun Transaction.initQuickResumeBuilderDb() {
 //    val id = userDao.add(
 //        User(
 //            username = "bill.gates",
-//            password = "pass",
+//            password = "windows10",
 //            firstName = "Bill",
 //            lastName = "Gates",
 //            email = "bill.gates@gmail.com",
