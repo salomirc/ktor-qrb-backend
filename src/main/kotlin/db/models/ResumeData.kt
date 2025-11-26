@@ -7,6 +7,10 @@ import org.jetbrains.exposed.sql.Table
 object ResumeData : Table() {
     val id: Column<Int> = integer("id").autoIncrement()
 
+    // Foreign key to USERS
+    val userId: Column<Int> =
+        integer("user_id").references(Users.id, onDelete = ReferenceOption.CASCADE)
+
     // Personal info
     val fullName: Column<String?> = varchar("full_name", 200).nullable()
     val title: Column<String?> = varchar("title", 200).nullable()
@@ -61,7 +65,9 @@ object ResumeLanguage : Table() {
 }
 
 data class ResumeDataModel(
-    val personalInfo: PersonalInfo,
+    val id: Int = 0,
+    val userId: Int,
+    val personalInfo: PersonalInfo?,
     val summary: String?,
     val workHistory: List<WorkHistory>,
     val education: List<Education>,

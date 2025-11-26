@@ -2,7 +2,7 @@ package com.bitrabbit.db
 
 import MigrationUtils
 import com.bitrabbit.db.initDSL.initQuickResumeBuilderDb
-import com.bitrabbit.db.models.Users
+import com.bitrabbit.db.models.ResumeData
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.config.*
@@ -48,7 +48,7 @@ object DatabaseFactory {
             .load()
 
 //        transaction {
-//            generateMigrationScript(migration)
+//            generateMigrationScript(migrationDir)
 //        }
 
 //        transaction {
@@ -73,9 +73,9 @@ object DatabaseFactory {
     private fun generateMigrationScript(migrationsDirectory: String) {
         // Generate a migration script in the specified path
         MigrationUtils.generateMigrationScript(
-            Users,
+            ResumeData,
             scriptDirectory = migrationsDirectory,
-            scriptName = "V2__drop_password_unique_index",
+            scriptName = "V3__ResumeData_add_Users_id_foreign_key",
         )
     }
 }
