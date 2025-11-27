@@ -11,6 +11,7 @@ import io.ktor.server.plugins.calllogging.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.plugins.defaultheaders.*
+import io.ktor.server.plugins.httpsredirect.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -83,7 +84,7 @@ fun Application.installPlugins(
 
     install(CORS) {
         // ✅ Allow production frontend
-        allowHost("salomirc.linkpc.net", schemes = listOf("https"))
+        allowHost("quickresumebuilder.linkpc.net", schemes = listOf("https"))
 
         // ✅ Allow localhost for development
         allowHost("localhost:8080", schemes = listOf("http"))
@@ -108,10 +109,10 @@ fun Application.installPlugins(
         exposeHeader(HttpHeaders.ContentType)
     }
 
-//    install(HttpsRedirect) {
-//        // The port to redirect to. By default, 443, the default HTTPS port.
-//        sslPort = 443
-//        // 301 Moved Permanently, or 302 Found redirect.
-//        permanentRedirect = true
-//    }
+    install(HttpsRedirect) {
+        // The port to redirect to. By default, 443, the default HTTPS port.
+        sslPort = 443
+        // 301 Moved Permanently, or 302 Found redirect.
+        permanentRedirect = true
+    }
 }
