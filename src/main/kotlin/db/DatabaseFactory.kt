@@ -27,7 +27,7 @@ object DatabaseFactory {
             this.username = user
             this.password = password
 
-            maximumPoolSize = 4
+            maximumPoolSize = 10
             minimumIdle = 2               // keep a few connections ready
             idleTimeout = 60_000          // 60s before idle connections are closed
             connectionTimeout = 30_000    // 30s max wait for a connection
