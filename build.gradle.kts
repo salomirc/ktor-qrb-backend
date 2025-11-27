@@ -22,7 +22,6 @@ dependencies {
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.serialization.gson)
     implementation(libs.ktor.server.status.pages)
-    implementation(libs.ktor.server.http.redirect)
     implementation(libs.ktor.server.default.headers)
     implementation(libs.ktor.server.auth.jwt)
 
