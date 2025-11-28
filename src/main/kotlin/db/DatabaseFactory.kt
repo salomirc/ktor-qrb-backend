@@ -27,12 +27,20 @@ object DatabaseFactory {
             this.username = user
             this.password = password
 
-            maximumPoolSize = 10
-            minimumIdle = 2               // keep a few connections ready
-            idleTimeout = 60_000          // 60s before idle connections are closed
-            connectionTimeout = 30_000    // 30s max wait for a connection
-            maxLifetime = 30 * 60_000     // recycle connections every 30 min
-            leakDetectionThreshold = 20_000  // warn if connection not returned in 20s
+            // ⭐ Tuned for 1 GB RAM servers (best settings)
+            maximumPoolSize = 3            // limit to 3 connections total
+            minimumIdle = 1                // only one idle connection
+            idleTimeout = 30_000           // keep idle connections for 30s
+
+            // ⭐ Stability settings
+            connectionTimeout = 10_000     // fail fast if pool is exhausted
+            maxLifetime = 1_200_000        // 20 min (below MySQL's 28 min death)
+            validationTimeout = 5_000      // quick validation timeout
+
+            // ⭐ Detect real leaks without false positives
+            leakDetectionThreshold = 10_000 // warn if held >10s
+
+            // ⭐ Required for Exposed ORM
             isAutoCommit = false
             transactionIsolation = "TRANSACTION_REPEATABLE_READ"
         }
@@ -40,6 +48,7 @@ object DatabaseFactory {
         val dataSource = HikariDataSource(hikariConfig)
         Database.connect(dataSource)
         println("✅ Connected to MySQL database: $url")
+        preventMetadataLeak()
 
         val flyway = Flyway.configure()
             .dataSource(url, user, password)
@@ -56,6 +65,11 @@ object DatabaseFactory {
 //        }
 
         initDbTables()
+    }
+
+    private fun preventMetadataLeak() {
+        // ⭐ IMPORTANT: Prevent Exposed lazy metadata leak
+        transaction { }
     }
 
     /**
