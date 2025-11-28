@@ -38,7 +38,7 @@ object DatabaseFactory {
             validationTimeout = 5_000      // quick validation timeout
 
             // ⭐ Detect real leaks without false positives
-            leakDetectionThreshold = 10_000 // warn if held >10s
+            leakDetectionThreshold = 30_000 // warn if held >30s
 
             // ⭐ Required for Exposed ORM
             isAutoCommit = false
@@ -48,7 +48,6 @@ object DatabaseFactory {
         val dataSource = HikariDataSource(hikariConfig)
         Database.connect(dataSource)
         println("✅ Connected to MySQL database: $url")
-        preventMetadataLeak()
 
         val flyway = Flyway.configure()
             .dataSource(url, user, password)
@@ -65,11 +64,6 @@ object DatabaseFactory {
 //        }
 
         initDbTables()
-    }
-
-    private fun preventMetadataLeak() {
-        // ⭐ IMPORTANT: Prevent Exposed lazy metadata leak
-        transaction { }
     }
 
     /**
