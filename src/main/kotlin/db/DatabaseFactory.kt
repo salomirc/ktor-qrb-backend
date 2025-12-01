@@ -2,7 +2,7 @@ package com.bitrabbit.db
 
 import MigrationUtils
 import com.bitrabbit.db.initDSL.initQuickResumeBuilderDb
-import com.bitrabbit.db.models.ResumeData
+import com.bitrabbit.db.models.Users
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.config.*
@@ -55,13 +55,13 @@ object DatabaseFactory {
             .baselineOnMigrate(true) // Used when migrating an existing database for the first time
             .load()
 
-//        transaction {
-//            generateMigrationScript(migrationDir)
-//        }
+        transaction {
+            generateMigrationScript(migrationDir)
+        }
 
-//        transaction {
-//            flyway.migrate()
-//        }
+        transaction {
+            flyway.migrate()
+        }
 
         initDbTables()
     }
@@ -81,9 +81,9 @@ object DatabaseFactory {
     private fun generateMigrationScript(migrationsDirectory: String) {
         // Generate a migration script in the specified path
         MigrationUtils.generateMigrationScript(
-            ResumeData,
+            Users,
             scriptDirectory = migrationsDirectory,
-            scriptName = "V3__ResumeData_add_Users_id_foreign_key",
+            scriptName = "V4__Users_change_Users_token_to_varchar_500",
         )
     }
 }

@@ -35,13 +35,13 @@ fun Application.installPlugins(
                     transaction {
                         Users
                             .selectAll()
-                            .where { (Users.username eq auth.name) and (Users.password eq auth.password) }
+                            .where { (Users.email eq auth.name) and (Users.password eq auth.password) }
                             .map { resultRow ->
-                                resultRow[Users.username]
+                                resultRow[Users.email]
                             }
                     }
                 }
-                if (users.isNotEmpty()) UserIdPrincipal(auth.name) else null
+                if (users.size == 1) UserIdPrincipal(auth.name) else null
             }
         }
 

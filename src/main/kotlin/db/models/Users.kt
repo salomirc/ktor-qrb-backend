@@ -11,7 +11,7 @@ object Users: Table() {
     val lastName: Column<String> = varchar("last_name", 50)
     val email: Column<String> = varchar("email", 50)
     val isAdmin: Column<Boolean> = bool("is_admin")
-    val token: Column<String?> = varchar("token", 200).nullable()
+    val token: Column<String?> = varchar("token", 500).nullable()
 
     override val primaryKey = PrimaryKey(id)
 }

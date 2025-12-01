@@ -9,6 +9,7 @@ interface IUserDao {
     fun getAll(): List<User>
     fun getById(id: Int): User?
     fun getByUsername(username: String): User?
+    fun getByEmailAddress(email: String): User?
     fun add(user: User): Int
     fun update(id: Int, user: User): Boolean
     fun delete(id: Int): Boolean
@@ -28,6 +29,12 @@ class UserDao : IUserDao {
 
     override fun getByUsername(username: String): User? {
         return Users.selectAll().where { Users.username eq username }
+            .map { toUser(it) }
+            .singleOrNull()
+    }
+
+    override fun getByEmailAddress(email: String): User? {
+        return Users.selectAll().where { Users.email eq email }
             .map { toUser(it) }
             .singleOrNull()
     }

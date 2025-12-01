@@ -17,8 +17,9 @@ fun Route.login(issuer: String, audience: String, userDao: IUserDao){
         val user: User? = userIdPrincipal?.let { principal ->
             withContext(Dispatchers.IO) {
                 transaction {
+                    println("principal.name = ${principal.name}")
                     val token = makeToken(issuer, audience, principal.name)
-                    val existingUser = userDao.getByUsername(principal.name) ?: return@transaction null
+                    val existingUser = userDao.getByEmailAddress(principal.name) ?: return@transaction null
                     val updatedUser = existingUser.copy(token = token)
                     val success = userDao.update(updatedUser.id, updatedUser)
                     if (success) updatedUser else null
