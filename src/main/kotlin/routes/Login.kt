@@ -3,9 +3,10 @@ package com.bitrabbit.routes
 import com.bitrabbit.db.dao.IUserDao
 import com.bitrabbit.db.models.User
 import com.bitrabbit.helper.AuthHelper.makeToken
+import io.ktor.http.*
 import io.ktor.server.auth.*
+import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.util.reflect.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -13,7 +14,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 fun Route.login(issuer: String, audience: String, userDao: IUserDao){
     get("/login") {
         val userIdPrincipal = call.principal<UserIdPrincipal>()
-        val user = userIdPrincipal?.let { principal ->
+        val user: User? = userIdPrincipal?.let { principal ->
             withContext(Dispatchers.IO) {
                 transaction {
                     val token = makeToken(issuer, audience, principal.name)
@@ -24,6 +25,10 @@ fun Route.login(issuer: String, audience: String, userDao: IUserDao){
                 }
             }
         }
-        call.respond(user, typeInfo<User?>())
+        if (user == null) {
+            call.respondText("Resume not found", status = HttpStatusCode.NotFound)
+        } else {
+            call.respond(user)
+        }
     }
 }
