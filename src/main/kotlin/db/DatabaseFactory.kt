@@ -34,7 +34,7 @@ object DatabaseFactory {
 
             // ⭐ Stability settings
             connectionTimeout = 10_000     // fail fast if pool is exhausted
-            maxLifetime = 1_200_000        // 20 min (below MySQL's 28 min death)
+            maxLifetime = 1_200_000        // 20 min (below MySQL's 28min death)
             validationTimeout = 5_000      // quick validation timeout
 
             // ⭐ Detect real leaks without false positives
@@ -83,7 +83,7 @@ object DatabaseFactory {
         MigrationUtils.generateMigrationScript(
             Users,
             scriptDirectory = migrationsDirectory,
-            scriptName = "V4__Users_change_Users_token_to_varchar_500",
+            scriptName = "V5__Users_change_Users_email_to_uniqueIndex",
         )
     }
 }
