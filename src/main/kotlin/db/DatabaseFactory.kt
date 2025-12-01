@@ -55,13 +55,13 @@ object DatabaseFactory {
             .baselineOnMigrate(true) // Used when migrating an existing database for the first time
             .load()
 
-        transaction {
-            generateMigrationScript(migrationDir)
-        }
-
-        transaction {
-            flyway.migrate()
-        }
+//        transaction {
+//            generateMigrationScript(migrationDir)
+//        }
+//
+//        transaction {
+//            flyway.migrate()
+//        }
 
         initDbTables()
     }
